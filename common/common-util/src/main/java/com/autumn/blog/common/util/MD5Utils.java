@@ -1,23 +1,20 @@
 package com.autumn.blog.common.util;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
-@Slf4j
 public final class MD5Utils {
 
     private static byte[] md5(String s) {
         MessageDigest algorithm;
         try {
-            algorithm = MessageDigest.getInstance("MD5Utils");
+            algorithm = MessageDigest.getInstance("MD5");
             algorithm.reset();
             algorithm.update(s.getBytes("UTF-8"));
             byte[] messageDigest = algorithm.digest();
             return messageDigest;
         } catch (Exception e) {
-            log.error("MD5Utils Error...", e);
+            // log.error("MD5 Error...", e);
         }
         return null;
     }
@@ -42,7 +39,7 @@ public final class MD5Utils {
         try {
             return new String(toHex(md5(s)).getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            log.error("not supported charset...{}", e);
+            // log.error("not supported charset...{}", e);
             return s;
         }
     }
@@ -51,8 +48,12 @@ public final class MD5Utils {
         try {
             return hash(hash(str) + salt);
         } catch (Exception e) {
-            log.error("not supported charset...{}", e);
+            // log.error("not supported charset...{}", e);
             return str;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(MD5Utils.hashPassword("111111", "8cf59a89cdfb4c8d855b84ddf66cb2bc"));
     }
 }

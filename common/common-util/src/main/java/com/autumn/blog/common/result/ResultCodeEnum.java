@@ -4,16 +4,18 @@ import lombok.Getter;
 
 /**
  * 统一返回结果状态信息类
- *
  */
 @Getter
 public enum ResultCodeEnum {
 
-    SUCCESS(200,"成功"),
+    SUCCESS(200, "成功"),
     FAIL(201, "失败"),
     ACCOUNT_EXIST(202, "该账号已存在"),
     ACCOUNT_NOT_EXIST(203, "该账号不存在"),
     ACCOUNT_ERROR(204, "账号或密码错误"),
+    DATA_ERROR(205, "数据异常"),
+    LOGIN_AUTH(206, "未登录"),
+    SIGN_OVERDUE(207, "签名已过期"),
 
 
     ;

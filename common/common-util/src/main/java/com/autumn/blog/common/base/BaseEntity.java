@@ -1,10 +1,7 @@
 package com.autumn.blog.common.base;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +28,7 @@ public class BaseEntity implements Serializable {
      * 第三个部分是10bit, 工作机器ID,里面分为两个部分,5个bit是的是机房号,代表最多有25即32个机房,5个bit是指机器的ID,代表最多有25个机器,即32个机器。
      * 第四部分是12bit, 代表是同一个毫秒类产生不同的ID,区分同一个毫秒内产生的ID。
      **/
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -46,13 +43,14 @@ public class BaseEntity implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Date modifyTime;
+    private Date updateTime;
 
     /**
      * 逻辑删除
      **/
+    @TableLogic
     private Byte flag;
 
     private Long createUser;
-    private Long modifyUser;
+    private Long updateUser;
 }
