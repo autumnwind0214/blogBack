@@ -1,6 +1,6 @@
 package com.autumn.blog.mapper;
 
-import com.autumn.blog.model.entity.user.UserInfo;
+import com.autumn.blog.model.entity.system.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @version: 1.0
  */
 @Mapper
-public interface UserInfoMapper extends BaseMapper<UserInfo> {
+public interface MenuMapper extends BaseMapper<Menu> {
 }

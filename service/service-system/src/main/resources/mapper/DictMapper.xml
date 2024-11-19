@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.autumn.blog.mapper.DictMapper">
+
+
+    <!-- 根据user_id 查询menu_id -->
+
+    <select id="listDict" resultType="com.autumn.blog.model.vo.SysDictVo">
+        SELECT dict.id,
+        dict.dict_type_id,
+        dict.code_name,
+        dict.sort,
+        dict.callback_show_style,
+        dict.is_lock,
+        dt.type_name,
+        dt.type_code
+        FROM dict_type AS dt
+        LEFT JOIN dict
+        ON dt.id = dict.dict_type_id
+        where dt.flag = 0
+        <if test="typeCode != null and typeCode != ''">
+            and dt.type_code = #{typeCode}
+        </if>
+        order by dict_type_id asc, sort asc
+    </select>
+</mapper>

@@ -12,4 +12,10 @@ public class RedisConstant {
     // token 过期时间
     public static final int USER_LOGIN_KEY_TIMEOUT = 60 * 60 * 24 * 100;
 
+    /**
+     * 字典信息
+     */
+    public static final String SYS_DICT = "sys_dict";
+    public static final int SYS_DICT_KEY_TIMEOUT = 2;
+
 }

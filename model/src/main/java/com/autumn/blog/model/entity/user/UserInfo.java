@@ -1,4 +1,4 @@
-package com.autumn.blog.model.entity;
+package com.autumn.blog.model.entity.user;
 
 import com.autumn.blog.common.base.BaseEntity;
 import lombok.Data;

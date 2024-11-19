@@ -1,4 +1,4 @@
-package com.autumn.blog.model.entity;
+package com.autumn.blog.model.entity.system;
 
 import com.autumn.blog.common.base.BaseEntity;
 import lombok.Data;
@@ -25,4 +25,5 @@ public class Menu extends BaseEntity {
     Byte hasFull;
     Byte hasAffix;
     Byte hasKeepAlive;
+    Integer menuType;
 }

@@ -5,7 +5,7 @@ import com.autumn.blog.common.result.ResultCodeEnum;
 import com.autumn.blog.common.util.MD5Utils;
 import com.autumn.blog.common.util.UuidUtils;
 import com.autumn.blog.mapper.UserInfoMapper;
-import com.autumn.blog.model.entity.UserInfo;
+import com.autumn.blog.model.entity.user.UserInfo;
 import com.autumn.blog.model.form.LoginForm;
 import com.autumn.blog.model.form.RegisterForm;
 import com.autumn.blog.model.vo.UserInfoVo;

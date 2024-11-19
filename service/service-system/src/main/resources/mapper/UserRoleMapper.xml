@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.autumn.blog.mapper.UserRoleMapper">
+
+
+    <!-- 根据user_id 查询menu_id -->
+    <select id="queryMenuIdByUserId" resultType="java.lang.String">
+        SELECT DISTINCT
+            ( rm.menu_id )
+        FROM
+            user_role ur
+                LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
+        WHERE
+            user_id = #{userId}
+    </select>
+</mapper>
