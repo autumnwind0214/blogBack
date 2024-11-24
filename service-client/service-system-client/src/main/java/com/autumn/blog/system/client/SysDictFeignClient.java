@@ -1,7 +1,6 @@
 package com.autumn.blog.system.client;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.entity.system.Dict;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,13 +17,7 @@ import java.util.Map;
  * @version: 1.0
  */
 @FeignClient(value = "service-system")
-public interface SystemFeignClient {
-
-    @GetMapping("/system/menu/queryMenuByUserId/{userId}")
-    Result<List<SysMenuVo>> findMenuListByUserId(@PathVariable Long userId);
-
-    @GetMapping("/system/menu/getMenuList")
-    Result<List<SysMenuVo>> getMenuList();
+public interface SysDictFeignClient {
 
     @GetMapping("/system/dict/getAllDict")
     Result<Map<String, List<SysDictVo>>> getAllDict();

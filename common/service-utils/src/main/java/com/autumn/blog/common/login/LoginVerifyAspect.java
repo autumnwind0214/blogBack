@@ -42,7 +42,7 @@ public class LoginVerifyAspect {
 
         // 3.判断token是否为空，如果为空，返回登录提示
         if (!StringUtils.hasText(token)) {
-            throw new AutumnException(ResultCodeEnum.LOGIN_AUTH);
+            throw new AutumnException(ResultCodeEnum.UNAUTHORIZED, "未登录");
         }
 
         // 4.token不为空，查询
@@ -52,7 +52,7 @@ public class LoginVerifyAspect {
         if (StringUtils.hasText(userId)) {
             AuthContextHolder.setUserId(Long.parseLong(userId));
         } else {
-            throw new AutumnException(ResultCodeEnum.SIGN_OVERDUE);
+            throw new AutumnException(ResultCodeEnum.UNAUTHORIZED, "授权过期");
         }
         // 6.执行业务方法
         return joinPoint.proceed();

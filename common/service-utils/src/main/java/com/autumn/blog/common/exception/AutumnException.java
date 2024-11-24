@@ -14,16 +14,22 @@ public class AutumnException extends RuntimeException {
     private Integer code;
     private String message;
 
+    public AutumnException() {
+        super(ResultCodeEnum.BAD_REQUEST.getMessage());
+        this.code = ResultCodeEnum.BAD_REQUEST.getCode();
+        this.message = ResultCodeEnum.BAD_REQUEST.getMessage();
+    }
+
     /**
-     * @param code
+     * @param resultCodeEnum
      * @param message
      * @return null
      * @date 2024/11/10 0:08
      * @description 通过状态码和错误消息创建异常对象
      */
-    public AutumnException(Integer code, String message) {
+    public AutumnException(ResultCodeEnum resultCodeEnum, String message) {
         super(message);
-        this.code = code;
+        this.code = resultCodeEnum.getCode();
         this.message = message;
     }
 

@@ -17,4 +17,13 @@
         WHERE
             user_id = #{userId}
     </select>
+    <select id="queryPermissionByUserId" resultType="java.lang.String">
+        SELECT DISTINCT(menu.permission)
+        FROM user_role
+                 LEFT JOIN role_menu ON user_role.role_id = role_menu.role_id
+                 LEFT JOIN menu ON role_menu.menu_id = menu.id
+        WHERE menu.permission IS NOT NULL
+          AND menu.permission != ''
+          AND user_role.user_id = #{userId};
+    </select>
 </mapper>

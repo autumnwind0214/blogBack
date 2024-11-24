@@ -1,5 +1,6 @@
 package com.autumn.blog.model.vo;
 
+import com.autumn.blog.common.base.TreeAble;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -12,12 +13,12 @@ import java.util.List;
  * @version: 1.0
  */
 @Data
-public class MenuTreeVo {
+public class MenuTreeVo implements TreeAble<MenuTreeVo> {
     @Schema(description = "id")
-    private Object id;
+    private Long id;
 
     @Schema(description = "pid")
-    private Object pid;
+    private Long pid;
 
     @Schema(description = "层级")
     private Long deep;
@@ -29,7 +30,7 @@ public class MenuTreeVo {
     private String title;
 
     @Schema(description = "菜单类型")
-    private String menuTypeCd;
+    private String menuType;
 
     @Schema(description = "按钮权限")
     private String permissions;

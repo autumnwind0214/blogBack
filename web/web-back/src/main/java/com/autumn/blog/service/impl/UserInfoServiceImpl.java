@@ -42,12 +42,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         Result<UserInfoVo> result = userInfoFeignClient.login(loginForm);
         // 1.判断返回状态值
         Integer code = result.getCode();
-        if (!ResultCodeEnum.SUCCESS.getCode().equals(code)) {
-            new AutumnException(ResultCodeEnum.ACCOUNT_ERROR);
+        if (!ResultCodeEnum.isOk(code)) {
+            new AutumnException(ResultCodeEnum.BAD_REQUEST);
         }
         UserInfoVo vo = result.getData();
         if (vo == null) {
-            throw new AutumnException(ResultCodeEnum.DATA_ERROR);
+            throw new AutumnException(ResultCodeEnum.NOT_FOUND, "用户不存在");
         }
 
         // 2.生成token字符串

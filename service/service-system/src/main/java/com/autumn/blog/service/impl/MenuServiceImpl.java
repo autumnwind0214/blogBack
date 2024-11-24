@@ -1,9 +1,17 @@
 package com.autumn.blog.service.impl;
 
+import com.autumn.blog.common.exception.AutumnException;
+import com.autumn.blog.common.result.ResultCodeEnum;
+import com.autumn.blog.common.util.AuthContextHolder;
+import com.autumn.blog.common.util.BeanCopyUtils;
+import com.autumn.blog.common.util.TreeUtils;
 import com.autumn.blog.mapper.MenuMapper;
 import com.autumn.blog.mapper.UserRoleMapper;
 import com.autumn.blog.model.entity.system.Menu;
+import com.autumn.blog.model.enums.FlagEnum;
 import com.autumn.blog.model.enums.MenuType;
+import com.autumn.blog.model.form.MenuAddForm;
+import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import com.autumn.blog.service.MenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -11,6 +19,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -79,6 +88,75 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     }
 
+    @Override
+    public List<MenuTreeVo> queryParentListTree(String nodeId) {
+        // 创建根目录节点并将所有数据包裹在其中
+        MenuTreeVo root = new MenuTreeVo();
+        root.setId(0L); // 根目录ID通常为0
+        root.setPid(-1L); // 设置一个无效的值作为根目录的PID
+        root.setTitle("根目录"); // 根目录的标题
+
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.ne(Menu::getMenuType, MenuType.BUTTON.getCode());
+        queryWrapper.orderByAsc(Menu::getDeep).orderByAsc(Menu::getSort);
+        List<Menu> list = this.list(queryWrapper);
+        List<MenuTreeVo> menuTreeVos = BeanCopyUtils.copyList(list, MenuTreeVo.class);
+
+        // 构建树形
+        List<MenuTreeVo> tree = TreeUtils.buildTree(menuTreeVos, root, nodeId);
+        return tree;
+    }
+
+    @Override
+    public List<String> getAuthButtonList(Long userId) {
+        List<String> permissions = userRoleMapper.queryPermissionByUserId(userId);
+        return permissions;
+    }
+
+    @Override
+    public Long findBtnPermission(Long id, String permission) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.ne(Menu::getId, id).eq(Menu::getPermission, permission);
+        Long count = count(queryWrapper);
+        return count;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean addMenu(MenuAddForm menuAddForm) {
+        Menu menu = new Menu();
+        BeanUtils.copyProperties(menuAddForm, menu);
+        LambdaQueryWrapper<Menu> queryWrapper;
+        // 对非按钮进行唯一性校验
+        if (!MenuType.BUTTON.getCode().equals(menu.getMenuType())) {
+            queryWrapper = new LambdaQueryWrapper<Menu>().eq(Menu::getName, menu.getName());
+            if (this.count(queryWrapper) > 1) {
+                throw new AutumnException(ResultCodeEnum.CONFLICT);
+            }
+            queryWrapper = new LambdaQueryWrapper<Menu>().eq(Menu::getPath, menu.getPath());
+            if (this.count(queryWrapper) > 1) {
+                throw new AutumnException(ResultCodeEnum.CONFLICT);
+            }
+        }
+
+        int deep;
+        if (isRoot(menu.getPid())) {
+            deep = 1;
+            menu.setPid(0L);
+        } else {
+            Integer parentDeep = this.getById(menu.getPid()).getDeep();
+            deep = parentDeep + 1;
+        }
+        menu.setDeep(deep);
+        menu.setCreateUser(AuthContextHolder.getUserId());
+        menu.setHasChildren(FlagEnum.F.getCode());
+        save(menu);
+
+        menuMapper.syncTreeDeep();
+        menuMapper.syncTreeHasChildren();
+        return true;
+    }
+
     /**
      * 获取父级跟节点
      *
@@ -111,5 +189,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         }
         sysMenu.setChildren(childrenList);
         return sysMenu;
+    }
+
+    /**
+     * 是否是根节点
+     *
+     * @param pid 父级Id
+     * @return true:是根节点
+     */
+    private boolean isRoot(Long pid) {
+        return pid == null || pid.equals(0L);
     }
 }

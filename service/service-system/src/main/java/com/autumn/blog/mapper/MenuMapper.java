@@ -12,4 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
+    // 更新deep
+    void syncTreeDeep();
+
+    // 更新has_children
+    void syncTreeHasChildren();
 }

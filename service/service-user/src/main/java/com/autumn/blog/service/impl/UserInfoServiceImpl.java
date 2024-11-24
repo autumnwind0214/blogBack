@@ -35,11 +35,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         queryWrapper.eq(UserInfo::getUsername, loginForm.getUsername());
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         if (userInfo == null) {
-            throw new AutumnException(ResultCodeEnum.ACCOUNT_NOT_EXIST);
+            throw new AutumnException(ResultCodeEnum.NOT_FOUND, "账号或密码错误");
         }
         String hashPassword = MD5Utils.hashPassword(loginForm.getPassword(), userInfo.getSalt());
         if (!hashPassword.equals(userInfo.getPassword())) {
-            throw new AutumnException(ResultCodeEnum.ACCOUNT_ERROR);
+            throw new AutumnException(ResultCodeEnum.NOT_FOUND,"账号或密码错误");
         }
         UserInfoVo vo = new UserInfoVo();
         BeanUtils.copyProperties(userInfo, vo);
@@ -53,7 +53,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         queryWrapper.eq(UserInfo::getUsername, registerForm.getUsername());
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         if (userInfo != null) {
-            throw new AutumnException(ResultCodeEnum.ACCOUNT_EXIST);
+            throw new AutumnException(ResultCodeEnum.CONFLICT, "该账号已存在");
         }
         userInfo = new UserInfo();
         userInfo.setUsername(registerForm.getUsername());

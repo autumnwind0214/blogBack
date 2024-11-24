@@ -33,7 +33,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         // 查询所有字典
         List<SysDictVo> list = dictMapper.listDict("");
         if (CollectionUtils.isEmpty(list)) {
-            throw new AutumnException(ResultCodeEnum.DATA_ERROR);
+            throw new AutumnException(ResultCodeEnum.NOT_FOUND);
         }
         Map<String, List<SysDictVo>> result = list.stream().collect(Collectors.groupingBy(SysDictVo::getTypeCode, LinkedHashMap::new, // 使用 LinkedHashMap
                 // 作为分组的容器,有序解决乱序问题

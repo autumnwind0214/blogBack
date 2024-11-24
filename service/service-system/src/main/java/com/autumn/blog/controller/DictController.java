@@ -1,7 +1,6 @@
 package com.autumn.blog.controller;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.entity.system.Dict;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.service.DictService;
 import lombok.extern.slf4j.Slf4j;

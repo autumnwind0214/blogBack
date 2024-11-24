@@ -2,10 +2,9 @@ package com.autumn.blog.controller;
 
 import com.autumn.blog.common.login.LoginVerify;
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.entity.system.Dict;
 import com.autumn.blog.model.vo.SysDictVo;
-import com.autumn.blog.model.vo.SysMenuVo;
-import com.autumn.blog.service.SystemAuthService;
+import com.autumn.blog.service.SysDictService;
+import com.autumn.blog.service.SysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -26,32 +25,18 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "后台API接口管理")
 @RestController
-@RequestMapping("/system")
+@RequestMapping("/system/dict")
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class SystemAuthController {
+public class SysDictController {
 
     @Autowired
-    private SystemAuthService systemAuthService;
-
-    @LoginVerify
-    @Operation(summary = "查询用户具有的菜单")
-    @GetMapping("/menu")
-    public Result<List<SysMenuVo>> queryMenuByUserId() {
-        List<SysMenuVo> menuList = systemAuthService.findMenuListByUserId();
-        return Result.success(menuList);
-    }
-
-    @LoginVerify
-    @Operation(summary = "菜单列表查询")
-    @GetMapping("/menu/getMenuList")
-    public Result<List<SysMenuVo>> getMenuList() {
-        return Result.success(systemAuthService.getMenuList());
-    }
+    private SysDictService sysDictService;
 
     @LoginVerify
     @Operation(summary = "获取所有字典信息")
-    @GetMapping("/dict/getAllDict")
+    @GetMapping("/getAllDict")
     public Result<Map<String, List<SysDictVo>>> getAllDict() {
-        return Result.success(systemAuthService.getAllDict());
+        return Result.success(sysDictService.getAllDict());
     }
+
 }

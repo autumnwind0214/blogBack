@@ -41,19 +41,19 @@ public class SysMenuVo {
     private String title;
 
     @JsonIgnore
-    private Byte hasHidden;
+    private Byte isHidden;
 
     @JsonIgnore
-    private Byte hasFull;
+    private Byte isFull;
 
     @JsonIgnore
-    private Byte hasAffix;
+    private Byte isAffix;
 
     @JsonIgnore
     private String useDataScope;
 
     @JsonIgnore
-    private Byte hasKeepAlive;
+    private Byte isKeepAlive;
 
     @Schema(description = "元数据")
     private Meta meta;
@@ -64,7 +64,7 @@ public class SysMenuVo {
     private String permissions;
 
     @Schema(description = "菜单类型")
-    private Integer menuType;
+    private Long menuType;
 
     @Data
     public static class Meta {
@@ -76,16 +76,16 @@ public class SysMenuVo {
         private String title;
 
         @Schema(description = "是否在菜单中隐藏 (通常列表详情页需要隐藏)")
-        private Byte hasHidden;
+        private Byte isHidden;
 
         @Schema(description = "菜单是否全屏 (示例：数据大屏页面)")
-        private Byte hasFull;
+        private Byte isFull;
 
         @Schema(description = "菜单是否固定在标签页中")
-        private Byte hasAffix;
+        private Byte isAffix;
 
         @Schema(description = "当前路由是否缓存")
-        private Byte hasKeepAlive;
+        private Byte isKeepAlive;
 
         @Schema(description = "菜单是否开启数据权限")
         private String useDataScope;

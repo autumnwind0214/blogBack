@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.autumn.blog.mapper.MenuMapper">
+
+
+    <update id="syncTreeDeep">
+        UPDATE menu AS m
+            JOIN menu AS parent
+            ON m.pid = parent.id
+        SET m.deep = parent.deep + 1
+        WHERE 1=1 and m.flag = 0;
+    </update>
+    <update id="syncTreeHasChildren">
+        UPDATE menu AS m
+            JOIN (
+                SELECT id,
+                       IF(EXISTS (SELECT 1 FROM menu WHERE pid = sub_m.id), 1, 0) AS has_children
+                FROM menu AS sub_m
+                WHERE 1=1 and sub_m.flag = 0
+            ) AS subquery
+            ON m.id = subquery.id
+        SET m.has_children = 1
+        WHERE subquery.has_children = 1;
+    </update>
+</mapper>
