@@ -1,7 +1,10 @@
 package com.autumn.blog.model.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -12,15 +15,21 @@ import java.util.Date;
  */
 @Data
 public class UserInfoVo {
-    Long id;
-    String phone;
-    String nickname;
-    String logo;
-    Integer age;
-    Integer sex;
-    String email;
-    Date lastLoginTime;
-    Date createTime;
-    Date updateTime;
-    String username;
+    private Long id;
+    private String phone;
+    private String nickname;
+    private String logo;
+    private Integer age;
+    private Integer sex;
+    private String email;
+    private LocalDateTime lastLoginTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private String username;
+
+    // 角色信息
+    private String roleInfo;
+
+    // 角色ID,多个逗号分隔
+    private String roleIds;
 }

@@ -3,12 +3,17 @@ package com.autumn.blog.controller;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.form.LoginForm;
 import com.autumn.blog.model.form.RegisterForm;
+import com.autumn.blog.model.form.UserInfoForm;
 import com.autumn.blog.model.vo.UserInfoVo;
 import com.autumn.blog.service.UserInfoService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author autumn
@@ -36,6 +41,12 @@ public class UserInfoController {
     @PostMapping("/register")
     public Result<Boolean> register(@RequestBody RegisterForm registerForm) {
         return Result.success(userInfoService.register(registerForm));
+    }
+
+    @Operation(summary = "用户列表")
+    @PostMapping("/listPage")
+    public Result<Page<UserInfoVo>> listPage(@RequestBody UserInfoForm form) {
+        return Result.success(userInfoService.listPage(form));
     }
 
 }

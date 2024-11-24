@@ -1,8 +1,9 @@
-package com.autumn.blog.model.entity.user;
+package com.autumn.blog.model.entity.system;
 
 import com.autumn.blog.common.base.BaseEntity;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,10 +17,10 @@ public class UserInfo extends BaseEntity {
     String phone;
     String nickname;
     String logo;
-    Date birthday;
+    LocalDateTime birthday;
     Integer sex;
     String email;
-    Date lastLoginTime;
+    LocalDateTime lastLoginTime;
     String username;
     String password;
     String salt;

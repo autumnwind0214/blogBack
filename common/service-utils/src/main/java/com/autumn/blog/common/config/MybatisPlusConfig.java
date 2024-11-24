@@ -14,21 +14,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date 2024年11月15日
  * @version: 1.0
  */
-// @EnableTransactionManagement
-// @Configuration
-// @MapperScan("com.autumn.blog.mapper")
+@EnableTransactionManagement
+@Configuration
+@MapperScan("com.autumn.blog.mapper")
 public class MybatisPlusConfig {
 
-    /**
-     *
-     * @return
-     */
-    // @Bean
-    // public MybatisPlusInterceptor optimisticLockerInnerInterceptor(){
-    //     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-    //     //向Mybatis过滤器链中添加分页拦截器
-    //     interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-    //     return interceptor;
-    // }
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor(){
+
+        // 初始化 MybatisPlusInterceptor 核心插件
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 添加自动分页插件 PaginationInnerInterceptor
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        // 返回
+        return interceptor;
+    }
 
 }

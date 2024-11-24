@@ -4,14 +4,15 @@ import com.autumn.blog.common.constant.RedisConstant;
 import com.autumn.blog.common.exception.AutumnException;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.common.result.ResultCodeEnum;
-import com.autumn.blog.common.util.AuthContextHolder;
 import com.autumn.blog.common.util.UuidUtils;
 import com.autumn.blog.model.form.LoginForm;
 import com.autumn.blog.model.form.RegisterForm;
+import com.autumn.blog.model.form.UserInfoForm;
 import com.autumn.blog.model.vo.LoginInfoVo;
 import com.autumn.blog.model.vo.UserInfoVo;
 import com.autumn.blog.service.UserInfoService;
-import com.autumn.blog.user.client.UserInfoFeignClient;
+import com.autumn.blog.system.client.UserInfoFeignClient;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -74,5 +75,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public Boolean logout(String token) {
         Boolean delete = redisTemplate.delete(RedisConstant.USER_LOGIN_KEY_PREFIX + token);
         return true;
+    }
+
+    @Override
+    public Page<UserInfoVo> listPage(UserInfoForm form) {
+        Result<Page<UserInfoVo>> result = userInfoFeignClient.listPage(form);
+        return result.getData();
     }
 }

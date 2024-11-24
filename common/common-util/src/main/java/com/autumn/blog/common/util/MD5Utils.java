@@ -52,8 +52,4 @@ public final class MD5Utils {
             return str;
         }
     }
-
-    public static void main(String[] args) {
-        System.out.println(MD5Utils.hashPassword("111111", "8cf59a89cdfb4c8d855b84ddf66cb2bc"));
-    }
 }

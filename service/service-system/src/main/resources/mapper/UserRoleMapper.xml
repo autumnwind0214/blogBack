@@ -26,4 +26,26 @@
           AND menu.permission != ''
           AND user_role.user_id = #{userId};
     </select>
+    <select id="queryUserRoleInfo" resultType="com.autumn.blog.model.vo.UserRoleVo">
+        SELECT
+        user_id,
+        GROUP_CONCAT(role_id ORDER BY role_id) AS role_ids,
+        GROUP_CONCAT(CONCAT( role_id, ':', role_name )) AS role_infos
+        FROM
+        (
+        SELECT
+        user_role.user_id,
+        user_role.role_id,
+        role.role_name
+        FROM
+        user_role
+        LEFT JOIN role ON user_role.role_id = role.id
+        ) AS subquery
+        WHERE user_id IN
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        GROUP BY
+        user_id;
+    </select>
 </mapper>
