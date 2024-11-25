@@ -12,6 +12,7 @@ import com.autumn.blog.model.enums.FlagEnum;
 import com.autumn.blog.model.enums.MenuType;
 import com.autumn.blog.model.form.MenuAddForm;
 import com.autumn.blog.model.vo.MenuTreeVo;
+import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import com.autumn.blog.service.MenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -48,7 +49,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (!CollectionUtils.isEmpty(menuIds)) {
             // 菜单全部数据(当前用户下的)
             LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.in(Menu::getId, menuIds).orderByAsc(Menu::getDeep).orderByAsc(Menu::getSort);
+            queryWrapper.in(Menu::getId, menuIds).ne(Menu::getMenuType, MenuType.BUTTON.getCode()).orderByAsc(Menu::getDeep).orderByAsc(Menu::getSort);
             List<Menu> list = menuMapper.selectList(queryWrapper);
 
             // 构建树形
@@ -155,6 +156,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         menuMapper.syncTreeDeep();
         menuMapper.syncTreeHasChildren();
         return true;
+    }
+
+    @Override
+    public MenuVo detail(Long id) {
+        Menu menu = this.getById(id);
+        if (menu == null) {
+            throw new AutumnException(ResultCodeEnum.NOT_FOUND);
+        }
+        MenuVo vo = new MenuVo();
+        BeanUtils.copyProperties(menu, vo);
+        return vo;
     }
 
     /**

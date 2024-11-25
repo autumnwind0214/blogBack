@@ -2,10 +2,7 @@ package com.autumn.blog.system.client;
 
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.form.MenuAddForm;
-import com.autumn.blog.model.vo.MenuPermissionVo;
-import com.autumn.blog.model.vo.MenuTreeVo;
-import com.autumn.blog.model.vo.SysDictVo;
-import com.autumn.blog.model.vo.SysMenuVo;
+import com.autumn.blog.model.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,4 +36,7 @@ public interface SysMenuFeignClient {
 
     @PostMapping("/system/menu/add")
     Result<Boolean> addMenu(@RequestBody MenuAddForm menuAddForm);
+
+    @GetMapping("/system/menu/detail/{id}")
+    Result<MenuVo> detail(@PathVariable Long id);
 }

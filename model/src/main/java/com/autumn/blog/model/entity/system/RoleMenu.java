@@ -2,7 +2,11 @@ package com.autumn.blog.model.entity.system;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author autumn
@@ -11,12 +15,17 @@ import lombok.Data;
  * @version: 1.0
  */
 @Data
-public class RoleMenu {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoleMenu implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @TableId(type = IdType.ASSIGN_ID)
-    Long id;
+    private Long id;
 
-    Long roleId;
+    private Long roleId;
 
-    Long menuId;
+    private Long menuId;
 
 }

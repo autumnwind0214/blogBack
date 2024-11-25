@@ -1,10 +1,7 @@
 package com.autumn.blog.service;
 
 import com.autumn.blog.model.form.MenuAddForm;
-import com.autumn.blog.model.vo.MenuPermissionVo;
-import com.autumn.blog.model.vo.MenuTreeVo;
-import com.autumn.blog.model.vo.SysDictVo;
-import com.autumn.blog.model.vo.SysMenuVo;
+import com.autumn.blog.model.vo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +24,6 @@ public interface SysMenuService {
     List<String> getAuthButtonList();
 
     MenuPermissionVo findBtnPermission(Long id, String permission);
+
+    MenuVo detail(Long id);
 }

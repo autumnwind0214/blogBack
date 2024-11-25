@@ -66,7 +66,7 @@ public class MenuAddForm {
     /**
      * 按钮权限
      */
-    private String permissions;
+    private String permission;
 
     /**
      * 是否隐藏

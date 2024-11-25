@@ -1,4 +1,4 @@
-package com.autumn.blog.common.login;
+package com.autumn.blog.common.annotation;
 
 
 // 登录校验注解

@@ -1,10 +1,9 @@
 package com.autumn.blog.controller;
 
-import com.autumn.blog.common.login.LoginVerify;
+import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.service.SysDictService;
-import com.autumn.blog.service.SysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;

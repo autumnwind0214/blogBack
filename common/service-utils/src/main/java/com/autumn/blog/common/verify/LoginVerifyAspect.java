@@ -1,5 +1,6 @@
-package com.autumn.blog.common.login;
+package com.autumn.blog.common.verify;
 
+import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.constant.RedisConstant;
 import com.autumn.blog.common.exception.AutumnException;
 import com.autumn.blog.common.result.ResultCodeEnum;
@@ -18,7 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author autumn
- * @description
+ * @description 登录校验
  * @date 2024年11月15日
  * @version: 1.0
  */

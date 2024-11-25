@@ -1,11 +1,11 @@
 package com.autumn.blog.controller;
 
-import com.autumn.blog.common.login.LoginVerify;
+import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.form.MenuAddForm;
-import com.autumn.blog.model.form.MenuPermissionForm;
 import com.autumn.blog.model.vo.MenuPermissionVo;
 import com.autumn.blog.model.vo.MenuTreeVo;
+import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import com.autumn.blog.service.SysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,10 +48,17 @@ public class SysMenuController {
     }
 
     @LoginVerify
-    @Operation(summary = "添加菜单")
+    @Operation(summary = "添加")
     @PostMapping("/add")
     public Result<Boolean> addMenu(@RequestBody MenuAddForm menuAddForm) {
         return Result.success(sysMenuService.addMenu(menuAddForm));
+    }
+
+    @LoginVerify
+    @Operation(summary = "获取详情")
+    @GetMapping("/detail")
+    public Result<MenuVo> detail(@RequestParam Long id) {
+        return Result.success(sysMenuService.detail(id));
     }
 
     @LoginVerify

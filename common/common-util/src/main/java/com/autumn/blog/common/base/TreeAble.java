@@ -13,9 +13,9 @@ public interface TreeAble<T> {
 
     Object getPid();
 
-    Long getDeep();
+    Integer getDeep();
 
-    Long getSort();
+    Integer getSort();
 
     List<T> getChildren();
 

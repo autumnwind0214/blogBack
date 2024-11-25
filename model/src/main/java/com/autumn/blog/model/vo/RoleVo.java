@@ -15,6 +15,7 @@ public class RoleVo {
     Long id;
     String roleName;
     String permission;
+    Integer isLock;
     LocalDateTime createTime;
     LocalDateTime updateTime;
 }

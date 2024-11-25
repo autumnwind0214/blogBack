@@ -4,6 +4,7 @@ import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.form.MenuAddForm;
 import com.autumn.blog.model.vo.MenuPermissionVo;
 import com.autumn.blog.model.vo.MenuTreeVo;
+import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import com.autumn.blog.service.MenuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,10 +59,15 @@ public class MenuController {
         return Result.success(menuService.findBtnPermission(id, permission));
     }
 
-    @Operation(summary = "")
+    @Operation(summary = "添加菜单")
     @PostMapping("/add")
     public Result<Boolean> addMenu(@RequestBody MenuAddForm menuAddForm) {
         return Result.success(menuService.addMenu(menuAddForm));
+    }
+
+    @GetMapping("/detail/{id}")
+    public Result<MenuVo> detail(@PathVariable Long id) {
+        return Result.success(menuService.detail(id));
     }
 
 }

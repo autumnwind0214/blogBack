@@ -13,7 +13,6 @@
     <name>service</name>
     <url>http://maven.apache.org</url>
     <modules>
-        <module>service-user</module>
         <module>service-system</module>
     </modules>
 

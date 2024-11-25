@@ -1,6 +1,8 @@
 package com.autumn.blog.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -16,9 +18,11 @@ import java.util.List;
 public class SysMenuVo {
 
     @Schema(description = "id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @Schema(description = "pid")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long pid;
 
     @Schema(description = "路径")
@@ -61,7 +65,7 @@ public class SysMenuVo {
     private List<SysMenuVo> children;
 
     @Schema(description = "权限标识")
-    private String permissions;
+    private String permission;
 
     @Schema(description = "菜单类型")
     private Long menuType;

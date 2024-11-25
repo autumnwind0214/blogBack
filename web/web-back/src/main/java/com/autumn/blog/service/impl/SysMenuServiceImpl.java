@@ -7,10 +7,7 @@ import com.autumn.blog.common.result.ResultCodeEnum;
 import com.autumn.blog.common.util.AuthContextHolder;
 import com.autumn.blog.common.util.TreeUtils;
 import com.autumn.blog.model.form.MenuAddForm;
-import com.autumn.blog.model.vo.MenuPermissionVo;
-import com.autumn.blog.model.vo.MenuTreeVo;
-import com.autumn.blog.model.vo.SysDictVo;
-import com.autumn.blog.model.vo.SysMenuVo;
+import com.autumn.blog.model.vo.*;
 import com.autumn.blog.service.SysMenuService;
 import com.autumn.blog.system.client.SysMenuFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +78,11 @@ public class SysMenuServiceImpl implements SysMenuService {
             vo.setPermissionCount(result.getData());
         }
         return vo;
+    }
+
+    @Override
+    public MenuVo detail(Long id) {
+        Result<MenuVo> result = sysMenuFeignClient.detail(id);
+        return result.getData();
     }
 }
