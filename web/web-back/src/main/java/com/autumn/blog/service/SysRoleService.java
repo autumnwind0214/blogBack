@@ -1,17 +1,16 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.entity.system.Role;
 import com.autumn.blog.model.form.RoleForm;
 import com.autumn.blog.model.vo.RoleVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @author autumn
- * @description RoleService
+ * @description
  * @date 2024年11月15日
  * @version: 1.0
  */
-public interface RoleService extends IService<Role> {
+public interface SysRoleService {
+
     Page<RoleVo> listPage(RoleForm form);
 }

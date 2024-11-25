@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.autumn.blog.mapper.RoleMapper">
+
+    <select id="listPage" resultType="com.autumn.blog.model.vo.RoleVo">
+        select *
+        from role
+        <where>
+            1=1
+            <if test="query.roleName != null and query.roleName != ''">
+                AND role.role_name LIKE CONCAT(CONCAT('%', #{query.roleName}),'%')
+            </if>
+
+            <if test="query.permission != null and query.permission != ''">
+                AND role.permission LIKE CONCAT(CONCAT('%', #{query.permission}),'%')
+            </if>
+        </where>
+    </select>
+</mapper>
