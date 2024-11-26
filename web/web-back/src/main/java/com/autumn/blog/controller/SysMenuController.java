@@ -2,7 +2,8 @@ package com.autumn.blog.controller;
 
 import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.form.MenuAddForm;
+import com.autumn.blog.model.form.MenuForm;
+import com.autumn.blog.model.form.SelectIdsForm;
 import com.autumn.blog.model.vo.MenuPermissionVo;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.MenuVo;
@@ -50,15 +51,29 @@ public class SysMenuController {
     @LoginVerify
     @Operation(summary = "添加")
     @PostMapping("/add")
-    public Result<Boolean> addMenu(@RequestBody MenuAddForm menuAddForm) {
-        return Result.success(sysMenuService.addMenu(menuAddForm));
+    public Result<Boolean> addMenu(@RequestBody MenuForm menuForm) {
+        return Result.success(sysMenuService.addMenu(menuForm));
     }
 
     @LoginVerify
-    @Operation(summary = "获取详情")
+    @Operation(summary = "详情")
     @GetMapping("/detail")
     public Result<MenuVo> detail(@RequestParam Long id) {
         return Result.success(sysMenuService.detail(id));
+    }
+
+    @LoginVerify
+    @Operation(summary = "编辑")
+    @PutMapping("/edit")
+    public Result<Boolean> edit(@RequestBody MenuForm menuForm) {
+        return Result.success(sysMenuService.edit(menuForm));
+    }
+
+    @LoginVerify
+    @Operation(summary = "删除")
+    @DeleteMapping("/delete")
+    public Result<Boolean> delete(@RequestBody SelectIdsForm ids) {
+        return Result.success(sysMenuService.delete(ids));
     }
 
     @LoginVerify

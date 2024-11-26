@@ -10,7 +10,8 @@ import com.autumn.blog.mapper.UserRoleMapper;
 import com.autumn.blog.model.entity.system.Menu;
 import com.autumn.blog.model.enums.FlagEnum;
 import com.autumn.blog.model.enums.MenuType;
-import com.autumn.blog.model.form.MenuAddForm;
+import com.autumn.blog.model.form.MenuForm;
+import com.autumn.blog.model.form.SelectIdsForm;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
@@ -124,9 +125,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean addMenu(MenuAddForm menuAddForm) {
+    public Boolean addMenu(MenuForm menuForm) {
         Menu menu = new Menu();
-        BeanUtils.copyProperties(menuAddForm, menu);
+        BeanUtils.copyProperties(menuForm, menu);
         LambdaQueryWrapper<Menu> queryWrapper;
         // 对非按钮进行唯一性校验
         if (!MenuType.BUTTON.getCode().equals(menu.getMenuType())) {
@@ -167,6 +168,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         MenuVo vo = new MenuVo();
         BeanUtils.copyProperties(menu, vo);
         return vo;
+    }
+
+    @Override
+    public Boolean edit(MenuForm menuForm) {
+        Menu menu = new Menu();
+        BeanUtils.copyProperties(menuForm, menu);
+        return this.updateById(menu);
+    }
+
+    @Override
+    @Transactional
+    public Boolean delete(SelectIdsForm ids) {
+        if (!CollectionUtils.isEmpty(ids.getIds())) {
+            // 递归查询下边的子节点id
+            List<Long> list = menuMapper.selectMenuAndChildrenIds((List<Long>) ids.getIds());
+            menuMapper.updateMenuAndChildrenIsDelete(list);
+            menuMapper.syncTreeDeep();
+            menuMapper.syncTreeHasChildren();
+        }
+        return true;
     }
 
     /**

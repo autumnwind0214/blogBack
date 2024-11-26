@@ -68,7 +68,7 @@ public class SysMenuVo {
     private String permission;
 
     @Schema(description = "菜单类型")
-    private Long menuType;
+    private Integer menuType;
 
     @Data
     public static class Meta {

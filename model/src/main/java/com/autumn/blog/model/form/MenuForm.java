@@ -12,13 +12,12 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "菜单添加")
-public class MenuAddForm {
+public class MenuForm {
 
     @Schema(description = "菜单id（修改菜单时必填）")
     private Long id;
 
     @NotNull(message = "菜单名称不能为空")
-    @Schema(description = "菜单名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String title;
 
     /**

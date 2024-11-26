@@ -1,10 +1,10 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.form.MenuAddForm;
+import com.autumn.blog.model.form.MenuForm;
+import com.autumn.blog.model.form.SelectIdsForm;
 import com.autumn.blog.model.vo.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author autumn
@@ -19,11 +19,15 @@ public interface SysMenuService {
 
     List<MenuTreeVo> tree(String nodeId);
 
-    Boolean addMenu(MenuAddForm menuAddForm);
+    Boolean addMenu(MenuForm menuForm);
 
     List<String> getAuthButtonList();
 
     MenuPermissionVo findBtnPermission(Long id, String permission);
 
     MenuVo detail(Long id);
+
+    Boolean edit(MenuForm menuForm);
+
+    Boolean delete(SelectIdsForm ids);
 }

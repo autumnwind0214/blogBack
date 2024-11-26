@@ -44,5 +44,5 @@ public class Menu extends BaseEntity {
     // 外链地址
     String redirect;
     // 菜单类型
-    Long menuType;
+    Integer menuType;
 }

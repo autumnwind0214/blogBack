@@ -26,4 +26,30 @@
         SET m.has_children = 1
         WHERE subquery.has_children = 1;
     </update>
+    <update id="updateMenuAndChildrenIsDelete">
+        UPDATE menu
+        SET flag = 1
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ;
+    </update>
+    <select id="selectMenuAndChildrenIds" resultType="java.lang.Long">
+        WITH RECURSIVE MenuCTE AS (
+        SELECT id, pid
+        FROM menu
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND flag = 0
+        UNION ALL
+        SELECT menu.id, menu.pid
+        FROM menu
+        JOIN MenuCTE cte ON menu.pid = cte.id
+        WHERE menu.flag = 0
+        )
+        SELECT id FROM MenuCTE;
+    </select>
 </mapper>

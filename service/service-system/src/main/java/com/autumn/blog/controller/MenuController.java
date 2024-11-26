@@ -1,8 +1,8 @@
 package com.autumn.blog.controller;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.form.MenuAddForm;
-import com.autumn.blog.model.vo.MenuPermissionVo;
+import com.autumn.blog.model.form.MenuForm;
+import com.autumn.blog.model.form.SelectIdsForm;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
@@ -61,13 +61,23 @@ public class MenuController {
 
     @Operation(summary = "添加菜单")
     @PostMapping("/add")
-    public Result<Boolean> addMenu(@RequestBody MenuAddForm menuAddForm) {
-        return Result.success(menuService.addMenu(menuAddForm));
+    public Result<Boolean> addMenu(@RequestBody MenuForm menuForm) {
+        return Result.success(menuService.addMenu(menuForm));
     }
 
     @GetMapping("/detail/{id}")
     public Result<MenuVo> detail(@PathVariable Long id) {
         return Result.success(menuService.detail(id));
+    }
+
+    @PutMapping("/edit")
+    public Result<Boolean> edit(@RequestBody MenuForm menuForm) {
+        return Result.success(menuService.edit(menuForm));
+    }
+
+    @DeleteMapping("/delete")
+    public Result<Boolean> delete(@RequestBody SelectIdsForm ids) {
+        return Result.success(menuService.delete(ids));
     }
 
 }
