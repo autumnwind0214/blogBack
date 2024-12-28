@@ -2,11 +2,10 @@ package com.autumn.blog.service.impl;
 
 import com.autumn.blog.common.util.BeanCopyUtils;
 import com.autumn.blog.mapper.RoleMapper;
-import com.autumn.blog.mapper.RoleMenuMapper;
-import com.autumn.blog.model.entity.system.Role;
-import com.autumn.blog.model.entity.system.RoleMenu;
-import com.autumn.blog.model.form.RoleForm;
-import com.autumn.blog.model.form.RoleMenuForm;
+import com.autumn.blog.model.dto.RoleDto;
+import com.autumn.blog.model.dto.RoleMenuDto;
+import com.autumn.blog.model.po.system.Role;
+import com.autumn.blog.model.po.system.RoleMenu;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.RoleMenuVo;
 import com.autumn.blog.model.vo.RoleVo;
@@ -24,7 +23,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +44,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private RoleMenuService roleMenuService;
 
     @Override
-    public Page<RoleVo> listPage(RoleForm form) {
+    public Page<RoleVo> listPage(RoleDto form) {
         Page<RoleVo> page = new Page<>(form.getPage(), form.getSize());
         return roleMapper.listPage(page, form);
     }
@@ -73,7 +71,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional
-    public Boolean setRoleMenus(RoleMenuForm form) {
+    public Boolean setRoleMenus(RoleMenuDto form) {
         // 删除当前角色下的所有记录
         LambdaQueryWrapper<RoleMenu> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(RoleMenu::getRoleId, form.getRoleId());

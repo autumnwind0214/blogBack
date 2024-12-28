@@ -1,5 +1,6 @@
 package com.autumn.blog.common.util;
 
+
 import com.autumn.blog.common.base.TreeAble;
 
 import java.lang.reflect.InvocationTargetException;

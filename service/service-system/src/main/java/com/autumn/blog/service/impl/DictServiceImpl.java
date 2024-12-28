@@ -3,7 +3,7 @@ package com.autumn.blog.service.impl;
 import com.autumn.blog.common.exception.AutumnException;
 import com.autumn.blog.common.result.ResultCodeEnum;
 import com.autumn.blog.mapper.DictMapper;
-import com.autumn.blog.model.entity.system.Dict;
+import com.autumn.blog.model.po.system.Dict;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.service.DictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

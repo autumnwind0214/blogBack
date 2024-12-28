@@ -1,7 +1,7 @@
 package com.autumn.blog.mapper;
 
-import com.autumn.blog.model.entity.system.Role;
-import com.autumn.blog.model.form.RoleForm;
+import com.autumn.blog.model.po.system.Role;
+import com.autumn.blog.model.dto.RoleDto;
 import com.autumn.blog.model.vo.RoleVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,5 +16,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
-    Page<RoleVo> listPage(@Param("page") Page<RoleVo> page, @Param("query") RoleForm form);
+    Page<RoleVo> listPage(@Param("page") Page<RoleVo> page, @Param("query") RoleDto form);
 }

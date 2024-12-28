@@ -1,6 +1,6 @@
 package com.autumn.blog.mapper;
 
-import com.autumn.blog.model.entity.system.Dict;
+import com.autumn.blog.model.po.system.Dict;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

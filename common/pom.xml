@@ -13,7 +13,6 @@
     <modules>
         <module>common-util</module>
         <module>common-log</module>
-        <module>spring-security</module>
         <module>service-utils</module>
     </modules>
 </project>

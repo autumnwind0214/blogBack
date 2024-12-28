@@ -1,7 +1,6 @@
 package com.autumn.blog.mapper;
 
-import com.autumn.blog.model.entity.system.UserRole;
-import com.autumn.blog.model.vo.UserInfoVo;
+import com.autumn.blog.model.po.system.UserRole;
 import com.autumn.blog.model.vo.UserRoleVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

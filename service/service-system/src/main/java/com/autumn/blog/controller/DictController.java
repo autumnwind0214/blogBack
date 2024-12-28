@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/system/dict")
+@RequestMapping("/dict")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class DictController {
 

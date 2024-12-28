@@ -1,6 +1,6 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.entity.system.RoleMenu;
+import com.autumn.blog.model.po.system.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

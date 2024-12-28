@@ -1,7 +1,7 @@
 package com.autumn.blog.service.impl;
 
 import com.autumn.blog.mapper.RoleMenuMapper;
-import com.autumn.blog.model.entity.system.RoleMenu;
+import com.autumn.blog.model.po.system.RoleMenu;
 import com.autumn.blog.service.RoleMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

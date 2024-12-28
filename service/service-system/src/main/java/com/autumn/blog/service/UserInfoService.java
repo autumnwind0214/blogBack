@@ -1,10 +1,11 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.form.LoginForm;
-import com.autumn.blog.model.form.RegisterForm;
-import com.autumn.blog.model.form.UserInfoForm;
+import com.autumn.blog.model.dto.LoginDto;
+import com.autumn.blog.model.dto.UserInfoDto;
+import com.autumn.blog.model.po.system.UserInfo;
 import com.autumn.blog.model.vo.UserInfoVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @author autumn
@@ -12,11 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * @date 2024年11月15日
  * @version: 1.0
  */
-public interface UserInfoService {
+public interface UserInfoService extends IService<UserInfo> {
 
-    UserInfoVo login(LoginForm loginForm);
-
-    Boolean register(RegisterForm registerForm);
-
-    Page<UserInfoVo> listPage(UserInfoForm form);
+    Page<UserInfoVo> listPage(UserInfoDto form);
 }

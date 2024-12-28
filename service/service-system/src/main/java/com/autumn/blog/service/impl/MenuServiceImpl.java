@@ -7,11 +7,11 @@ import com.autumn.blog.common.util.BeanCopyUtils;
 import com.autumn.blog.common.util.TreeUtils;
 import com.autumn.blog.mapper.MenuMapper;
 import com.autumn.blog.mapper.UserRoleMapper;
-import com.autumn.blog.model.entity.system.Menu;
 import com.autumn.blog.model.enums.FlagEnum;
 import com.autumn.blog.model.enums.MenuType;
-import com.autumn.blog.model.form.MenuForm;
-import com.autumn.blog.model.form.SelectIdsForm;
+import com.autumn.blog.model.dto.MenuDto;
+import com.autumn.blog.model.dto.SelectIdsDto;
+import com.autumn.blog.model.po.system.Menu;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
@@ -125,9 +125,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean addMenu(MenuForm menuForm) {
+    public Boolean addMenu(MenuDto menuDto) {
         Menu menu = new Menu();
-        BeanUtils.copyProperties(menuForm, menu);
+        BeanUtils.copyProperties(menuDto, menu);
         LambdaQueryWrapper<Menu> queryWrapper;
         // 对非按钮进行唯一性校验
         if (!MenuType.BUTTON.getCode().equals(menu.getMenuType())) {
@@ -171,15 +171,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public Boolean edit(MenuForm menuForm) {
+    public Boolean edit(MenuDto menuDto) {
         Menu menu = new Menu();
-        BeanUtils.copyProperties(menuForm, menu);
+        BeanUtils.copyProperties(menuDto, menu);
         return this.updateById(menu);
     }
 
     @Override
     @Transactional
-    public Boolean delete(SelectIdsForm ids) {
+    public Boolean delete(SelectIdsDto ids) {
         if (!CollectionUtils.isEmpty(ids.getIds())) {
             // 递归查询下边的子节点id
             List<Long> list = menuMapper.selectMenuAndChildrenIds((List<Long>) ids.getIds());

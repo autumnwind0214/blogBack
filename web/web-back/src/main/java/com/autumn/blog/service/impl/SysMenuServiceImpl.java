@@ -4,8 +4,8 @@ import com.autumn.blog.common.exception.AutumnException;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.common.result.ResultCodeEnum;
 import com.autumn.blog.common.util.AuthContextHolder;
-import com.autumn.blog.model.form.MenuForm;
-import com.autumn.blog.model.form.SelectIdsForm;
+import com.autumn.blog.model.dto.MenuDto;
+import com.autumn.blog.model.dto.SelectIdsDto;
 import com.autumn.blog.model.vo.*;
 import com.autumn.blog.service.SysMenuService;
 import com.autumn.blog.system.client.SysMenuFeignClient;
@@ -52,8 +52,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public Boolean addMenu(MenuForm menuForm) {
-        Result<Boolean> result = sysMenuFeignClient.addMenu(menuForm);
+    public Boolean addMenu(MenuDto menuDto) {
+        Result<Boolean> result = sysMenuFeignClient.addMenu(menuDto);
         return result.getData();
     }
 
@@ -81,13 +81,13 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public Boolean edit(MenuForm menuForm) {
-        Result<Boolean> result = sysMenuFeignClient.edit(menuForm);
+    public Boolean edit(MenuDto menuDto) {
+        Result<Boolean> result = sysMenuFeignClient.edit(menuDto);
         return result.getData();
     }
 
     @Override
-    public Boolean delete(SelectIdsForm ids) {
+    public Boolean delete(SelectIdsDto ids) {
         Result<Boolean> result = sysMenuFeignClient.delete(ids);
         return result.getData();
     }

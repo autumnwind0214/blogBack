@@ -21,6 +21,10 @@ public class Result<T> {
 
     public Result(){}
 
+    public Result(String message) {
+        this.message = message;
+    }
+
     // 返回数据
     protected static <T> Result<T> build(T data) {
         Result<T> result = new Result<T>();

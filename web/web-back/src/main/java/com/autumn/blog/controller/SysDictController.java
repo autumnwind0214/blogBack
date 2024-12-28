@@ -1,6 +1,5 @@
 package com.autumn.blog.controller;
 
-import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.service.SysDictService;
@@ -24,14 +23,14 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "后台API接口管理")
 @RestController
-@RequestMapping("/system/dict")
+@RequestMapping("/dict")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SysDictController {
 
     @Autowired
     private SysDictService sysDictService;
 
-    @LoginVerify
+    // @LoginVerify
     @Operation(summary = "获取所有字典信息")
     @GetMapping("/getAllDict")
     public Result<Map<String, List<SysDictVo>>> getAllDict() {

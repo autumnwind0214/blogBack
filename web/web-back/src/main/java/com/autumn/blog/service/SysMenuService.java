@@ -1,7 +1,7 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.form.MenuForm;
-import com.autumn.blog.model.form.SelectIdsForm;
+import com.autumn.blog.model.dto.MenuDto;
+import com.autumn.blog.model.dto.SelectIdsDto;
 import com.autumn.blog.model.vo.*;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface SysMenuService {
 
     List<MenuTreeVo> tree(String nodeId);
 
-    Boolean addMenu(MenuForm menuForm);
+    Boolean addMenu(MenuDto menuDto);
 
     List<String> getAuthButtonList();
 
@@ -27,7 +27,7 @@ public interface SysMenuService {
 
     MenuVo detail(Long id);
 
-    Boolean edit(MenuForm menuForm);
+    Boolean edit(MenuDto menuDto);
 
-    Boolean delete(SelectIdsForm ids);
+    Boolean delete(SelectIdsDto ids);
 }

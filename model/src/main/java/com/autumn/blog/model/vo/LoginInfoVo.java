@@ -1,6 +1,10 @@
 package com.autumn.blog.model.vo;
 
+import com.autumn.blog.model.po.system.UserInfo;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author autumn
@@ -9,8 +13,10 @@ import lombok.Data;
  * @version: 1.0
  */
 @Data
-public class LoginInfoVo {
+public class LoginInfoVo extends UserInfo {
     String name;
     String accessToken;
-    UserInfoVo userInfo;
+
+    //用户权限
+    List<String> permissions = new ArrayList<>();
 }

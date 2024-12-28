@@ -7,7 +7,6 @@ import com.autumn.blog.common.result.ResultCodeEnum;
 import com.autumn.blog.model.vo.SysDictVo;
 import com.autumn.blog.service.SysDictService;
 import com.autumn.blog.system.client.SysDictFeignClient;
-import com.autumn.blog.system.client.SysMenuFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

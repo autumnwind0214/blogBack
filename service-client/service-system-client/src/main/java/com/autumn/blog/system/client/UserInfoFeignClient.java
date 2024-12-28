@@ -1,12 +1,14 @@
 package com.autumn.blog.system.client;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.form.LoginForm;
-import com.autumn.blog.model.form.RegisterForm;
-import com.autumn.blog.model.form.UserInfoForm;
+import com.autumn.blog.model.po.system.UserInfo;
+import com.autumn.blog.model.dto.LoginDto;
+import com.autumn.blog.model.dto.UserInfoDto;
 import com.autumn.blog.model.vo.UserInfoVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,14 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "service-system")
 public interface UserInfoFeignClient {
 
-    // 用户登录
-    @PostMapping("/user/info/login")
-    public Result<UserInfoVo> login(@RequestBody LoginForm loginForm);
+    @PostMapping("/system/userinfo/listPage")
+    Result<Page<UserInfoVo>> listPage(@RequestBody UserInfoDto form);
 
-    // 用户注册
-    @PostMapping("/user/info/register")
-    public Result<Boolean> register(@RequestBody RegisterForm registerForm);
-
-    @PostMapping("/user/info/listPage")
-    Result<Page<UserInfoVo>> listPage(@RequestBody UserInfoForm form);
+    @GetMapping("/system/userinfo/getUserInfoByUserName/{username}")
+    Result<UserInfo> getUserInfoByUserName(@PathVariable String username);
 }

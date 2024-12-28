@@ -1,9 +1,8 @@
 package com.autumn.blog.service.impl;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.common.util.AuthContextHolder;
-import com.autumn.blog.model.form.RoleForm;
-import com.autumn.blog.model.form.RoleMenuForm;
+import com.autumn.blog.model.dto.RoleDto;
+import com.autumn.blog.model.dto.RoleMenuDto;
 import com.autumn.blog.model.vo.RoleMenuVo;
 import com.autumn.blog.model.vo.RoleVo;
 import com.autumn.blog.service.SysRoleService;
@@ -25,7 +24,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleFeignClient roleFeignClient;
 
     @Override
-    public Page<RoleVo> listPage(RoleForm form) {
+    public Page<RoleVo> listPage(RoleDto form) {
         Result<Page<RoleVo>> result = roleFeignClient.listPage(form);
         return result.getData();
     }
@@ -38,7 +37,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public Boolean setRoleMenus(RoleMenuForm form) {
+    public Boolean setRoleMenus(RoleMenuDto form) {
         Result<Boolean> result = roleFeignClient.setRoleMenus(form);
         return result.getData();
     }

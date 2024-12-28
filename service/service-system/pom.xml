@@ -8,15 +8,19 @@
     </parent>
 
     <artifactId>service-system</artifactId>
-    <packaging>war</packaging>
 
     <dependencies>
 
     </dependencies>
 
     <build>
+        <finalName>web-back</finalName>
         <plugins>
-
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
+
 </project>

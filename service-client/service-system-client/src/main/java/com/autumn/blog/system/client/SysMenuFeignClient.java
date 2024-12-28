@@ -1,8 +1,8 @@
 package com.autumn.blog.system.client;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.form.MenuForm;
-import com.autumn.blog.model.form.SelectIdsForm;
+import com.autumn.blog.model.dto.MenuDto;
+import com.autumn.blog.model.dto.SelectIdsDto;
 import com.autumn.blog.model.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +35,14 @@ public interface SysMenuFeignClient {
                                                @RequestParam(required = false) String permission);
 
     @PostMapping("/system/menu/add")
-    Result<Boolean> addMenu(@RequestBody MenuForm menuForm);
+    Result<Boolean> addMenu(@RequestBody MenuDto menuDto);
 
     @GetMapping("/system/menu/detail/{id}")
     Result<MenuVo> detail(@PathVariable Long id);
 
     @PutMapping("/system/menu/edit")
-    Result<Boolean> edit(@RequestBody MenuForm menuForm);
+    Result<Boolean> edit(@RequestBody MenuDto menuDto);
 
     @DeleteMapping("/system/menu/delete")
-    Result<Boolean> delete(@RequestBody SelectIdsForm ids);
+    Result<Boolean> delete(@RequestBody SelectIdsDto ids);
 }

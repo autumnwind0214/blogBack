@@ -1,8 +1,8 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.entity.system.Menu;
-import com.autumn.blog.model.form.MenuForm;
-import com.autumn.blog.model.form.SelectIdsForm;
+import com.autumn.blog.model.dto.MenuDto;
+import com.autumn.blog.model.dto.SelectIdsDto;
+import com.autumn.blog.model.po.system.Menu;
 import com.autumn.blog.model.vo.MenuTreeVo;
 import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
@@ -27,11 +27,11 @@ public interface MenuService extends IService<Menu> {
 
     Long findBtnPermission(Long id, String permission);
 
-    Boolean addMenu(MenuForm menuForm);
+    Boolean addMenu(MenuDto menuDto);
 
     MenuVo detail(Long id);
 
-    Boolean edit(MenuForm menuForm);
+    Boolean edit(MenuDto menuDto);
 
-    Boolean delete(SelectIdsForm ids);
+    Boolean delete(SelectIdsDto ids);
 }

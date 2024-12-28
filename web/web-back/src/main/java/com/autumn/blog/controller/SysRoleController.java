@@ -1,9 +1,8 @@
 package com.autumn.blog.controller;
 
-import com.autumn.blog.common.annotation.LoginVerify;
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.form.RoleForm;
-import com.autumn.blog.model.form.RoleMenuForm;
+import com.autumn.blog.model.dto.RoleDto;
+import com.autumn.blog.model.dto.RoleMenuDto;
 import com.autumn.blog.model.vo.RoleMenuVo;
 import com.autumn.blog.model.vo.RoleVo;
 import com.autumn.blog.service.SysRoleService;
@@ -23,17 +22,17 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Tag(name = "后台API接口管理")
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/role")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SysRoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
 
-    @LoginVerify
+    // @LoginVerify
     @Operation(summary = "获取角色列表")
     @PostMapping("/getRoleList")
-    public Result<Page<RoleVo>> getRoleList(@RequestBody RoleForm form) {
+    public Result<Page<RoleVo>> getRoleList(@RequestBody RoleDto form) {
         return Result.success(sysRoleService.listPage(form));
     }
 
@@ -44,10 +43,10 @@ public class SysRoleController {
         return Result.success(sysRoleService.getRoleMenus(roleId));
     }
 
-    @LoginVerify
+    // @LoginVerify
     @Operation(summary = "设置角色菜单权限")
     @PutMapping("/setRoleMenus")
-    public Result<Boolean> setRoleMenus(@RequestBody RoleMenuForm form) {
+    public Result<Boolean> setRoleMenus(@RequestBody RoleMenuDto form) {
         return Result.success(sysRoleService.setRoleMenus(form));
     }
 
