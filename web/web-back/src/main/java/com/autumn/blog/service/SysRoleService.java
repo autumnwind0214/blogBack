@@ -13,10 +13,4 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * @version: 1.0
  */
 public interface SysRoleService {
-
-    Page<RoleVo> listPage(RoleDto form);
-
-    RoleMenuVo getRoleMenus(Long roleId);
-
-    Boolean setRoleMenus(RoleMenuDto form);
 }

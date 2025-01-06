@@ -1,13 +1,10 @@
 package com.autumn.blog.system.client;
 
-import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.dto.MenuDto;
-import com.autumn.blog.model.dto.SelectIdsDto;
-import com.autumn.blog.model.vo.*;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import com.autumn.blog.model.vo.SysMenuVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 /**
  * @author autumn
@@ -15,34 +12,23 @@ import java.util.List;
  * @date 2024年11月15日
  * @version: 1.0
  */
-@FeignClient(value = "service-system")
-public interface SysMenuFeignClient {
+@Service
+public class SysMenuFeignClient {
 
-    @GetMapping("/system/menu/queryMenuByUserId/{userId}")
-    Result<List<SysMenuVo>> findMenuListByUserId(@PathVariable Long userId);
+    private final WebClient webClient;
 
-    @GetMapping("/system/menu/getMenuList")
-    Result<List<SysMenuVo>> getMenuList();
+    @Autowired
+    public SysMenuFeignClient(WebClient.Builder webClientBuilder) {
+        // 设置基础 URL
+        this.webClient = webClientBuilder.baseUrl("http://service-system").build();
+    }
 
-    @GetMapping("/system/menu/queryParentListTree")
-    Result<List<MenuTreeVo>> queryParentListTree(@RequestParam(required = false) String nodeId);
-
-    @GetMapping("/system/menu/getAuthButtonList/{userId}")
-    Result<List<String>> getAuthButtonList(@PathVariable Long userId);
-
-    @GetMapping("/system/menu/findBtnPermission")
-    Result<Long> findBtnPermission(@RequestParam(required = false) Long id,
-                                               @RequestParam(required = false) String permission);
-
-    @PostMapping("/system/menu/add")
-    Result<Boolean> addMenu(@RequestBody MenuDto menuDto);
-
-    @GetMapping("/system/menu/detail/{id}")
-    Result<MenuVo> detail(@PathVariable Long id);
-
-    @PutMapping("/system/menu/edit")
-    Result<Boolean> edit(@RequestBody MenuDto menuDto);
-
-    @DeleteMapping("/system/menu/delete")
-    Result<Boolean> delete(@RequestBody SelectIdsDto ids);
+    public Flux<SysMenuVo> getAsyncRoutes(Long userId){
+        Flux<SysMenuVo> resultFlux = webClient.get()
+                .uri("/menu/getAsyncRoutes/"+userId)
+                .retrieve()
+                .bodyToFlux(SysMenuVo.class)
+                .onErrorReturn(new SysMenuVo());
+        return resultFlux;
+    }
 }

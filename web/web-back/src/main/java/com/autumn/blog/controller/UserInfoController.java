@@ -26,19 +26,19 @@ import org.springframework.web.bind.annotation.*;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class UserInfoController {
 
-    @Autowired
-    private UserInfoService userInfoService;
-
-    @Operation(summary = "用户列表")
-    @PostMapping("/getUserList")
-    public Result<Page<UserInfoVo>> listPage(@RequestBody UserInfoDto form) {
-        return Result.success(userInfoService.listPage(form));
-    }
-
-    @GetMapping("/list")
-    public Result<Page<UserInfoVo>> list() {
-        UserInfoDto form = new UserInfoDto();
-        return Result.success(userInfoService.listPage(form));
-    }
+    // @Autowired
+    // private UserInfoService userInfoService;
+    //
+    // @Operation(summary = "用户列表")
+    // @PostMapping("/getUserList")
+    // public Result<Page<UserInfoVo>> listPage(@RequestBody UserInfoDto form) {
+    //     return Result.success(userInfoService.listPage(form));
+    // }
+    //
+    // @GetMapping("/list")
+    // public Result<Page<UserInfoVo>> list() {
+    //     UserInfoDto form = new UserInfoDto();
+    //     return Result.success(userInfoService.listPage(form));
+    // }
 
 }

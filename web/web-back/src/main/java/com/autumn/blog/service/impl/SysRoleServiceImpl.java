@@ -19,26 +19,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
-
-    @Autowired
-    private SysRoleFeignClient roleFeignClient;
-
-    @Override
-    public Page<RoleVo> listPage(RoleDto form) {
-        Result<Page<RoleVo>> result = roleFeignClient.listPage(form);
-        return result.getData();
-    }
-
-    @Override
-    public RoleMenuVo getRoleMenus(Long roleId) {
-        // 查询角色分配的菜单，及全部菜单
-        Result<RoleMenuVo> result = roleFeignClient.getRoleMenus(roleId);
-        return result.getData();
-    }
-
-    @Override
-    public Boolean setRoleMenus(RoleMenuDto form) {
-        Result<Boolean> result = roleFeignClient.setRoleMenus(form);
-        return result.getData();
-    }
 }

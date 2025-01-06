@@ -13,6 +13,4 @@ import java.util.Map;
  * @version: 1.0
  */
 public interface SysDictService {
-
-    Map<String, List<SysDictVo>> getAllDict();
 }

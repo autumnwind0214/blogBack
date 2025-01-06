@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
-    List<String> queryMenuIdByUserId(@Param("userId")Long userId);
+    List<Long> queryMenuIdByUserId(@Param("userId")Long userId);
 
     List<String> queryPermissionByUserId(@Param("userId")Long userId);
 

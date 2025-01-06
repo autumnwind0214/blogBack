@@ -43,10 +43,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     private UserRoleMapper userRoleMapper;
 
     @Override
-    public List<SysMenuVo> queryMenuByUserId(Long userId) {
+    public List<SysMenuVo> getAsyncRoutes(Long userId) {
         List<SysMenuVo> treeList = new ArrayList<>();
         // 查询用户具有的menu_id
-        List<String> menuIds = userRoleMapper.queryMenuIdByUserId(userId);
+        List<Long> menuIds = userRoleMapper.queryMenuIdByUserId(userId);
         if (!CollectionUtils.isEmpty(menuIds)) {
             // 菜单全部数据(当前用户下的)
             LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
@@ -150,7 +150,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             deep = parentDeep + 1;
         }
         menu.setDeep(deep);
-        menu.setCreateUser(AuthContextHolder.getUserId());
+        // menu.setCreateUser(AuthContextHolder.getUserId());
         menu.setHasChildren(FlagEnum.F.getCode());
         save(menu);
 

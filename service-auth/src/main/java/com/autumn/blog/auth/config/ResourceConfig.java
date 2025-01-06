@@ -43,6 +43,7 @@ public class ResourceConfig {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         // 添加基础的认证配置
+        // SecurityUtils.applyBasicSecurity(http, corsFilter, customSecurityProperties);
         SecurityUtils.applyBasicSecurity(http, customSecurityProperties);
 
         http.authorizeHttpRequests((authorize) -> authorize

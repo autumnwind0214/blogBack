@@ -12,6 +12,8 @@ import com.autumn.blog.system.client.SysMenuFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -28,67 +30,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     private SysMenuFeignClient sysMenuFeignClient;
 
     @Override
-    public List<SysMenuVo> findMenuListByUserId() {
-
-        Long userId = AuthContextHolder.getUserId();
-        Result<List<SysMenuVo>> result = sysMenuFeignClient.findMenuListByUserId(userId);
-        if (!ResultCodeEnum.isOk(result.getCode())) {
-            throw new AutumnException(ResultCodeEnum.BAD_REQUEST);
-        }
-        List<SysMenuVo> treeList = result.getData();
-        return treeList;
-    }
-
-    @Override
-    public List<SysMenuVo> getMenuList() {
-        Result<List<SysMenuVo>> result = sysMenuFeignClient.getMenuList();
-        return result.getData();
-    }
-
-    @Override
-    public List<MenuTreeVo> tree(String nodeId) {
-        Result<List<MenuTreeVo>> result = sysMenuFeignClient.queryParentListTree(nodeId);
-        return result.getData();
-    }
-
-    @Override
-    public Boolean addMenu(MenuDto menuDto) {
-        Result<Boolean> result = sysMenuFeignClient.addMenu(menuDto);
-        return result.getData();
-    }
-
-    @Override
-    public List<String> getAuthButtonList() {
-        Long userId = AuthContextHolder.getUserId();
-        Result<List<String>> result = sysMenuFeignClient.getAuthButtonList(userId);
-        return result.getData();
-    }
-
-    @Override
-    public MenuPermissionVo findBtnPermission(Long id, String permission) {
-        MenuPermissionVo vo = new MenuPermissionVo();
-        if (StringUtils.hasText(permission)) {
-            Result<Long> result = sysMenuFeignClient.findBtnPermission(id, permission);
-            vo.setPermissionCount(result.getData());
-        }
-        return vo;
-    }
-
-    @Override
-    public MenuVo detail(Long id) {
-        Result<MenuVo> result = sysMenuFeignClient.detail(id);
-        return result.getData();
-    }
-
-    @Override
-    public Boolean edit(MenuDto menuDto) {
-        Result<Boolean> result = sysMenuFeignClient.edit(menuDto);
-        return result.getData();
-    }
-
-    @Override
-    public Boolean delete(SelectIdsDto ids) {
-        Result<Boolean> result = sysMenuFeignClient.delete(ids);
-        return result.getData();
+    public Mono<List<SysMenuVo>> getAsyncRoutes(Long userId) {
+        Flux<SysMenuVo> asyncRoutes = sysMenuFeignClient.getAsyncRoutes(userId);
+        return asyncRoutes.collectList();
     }
 }

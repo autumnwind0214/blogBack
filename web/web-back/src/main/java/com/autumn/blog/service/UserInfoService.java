@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  */
 public interface UserInfoService {
 
-    Page<UserInfoVo> listPage(UserInfoDto form);
+    // Page<UserInfoVo> listPage(UserInfoDto form);
 }

@@ -5,18 +5,17 @@ package com.autumn.blog.common.util;
  */
 public class AuthContextHolder {
 
-    private static ThreadLocal<Long> userId = new ThreadLocal<Long>();
+    private static ThreadLocal<Long> userContext = new ThreadLocal<Long>();
 
-    public static void setUserId(Long _userId) {
-        userId.set(_userId);
+    public static void setUser(Long userId) {
+        userContext.set(userId);
     }
 
     public static Long getUserId() {
-        return userId.get();
+        return userContext.get();
     }
 
-    public static void removeUserId() {
-        userId.remove();
+    public static void clear() {
+        userContext.remove();
     }
-
 }

@@ -20,12 +20,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
-    @Autowired
-    private UserInfoFeignClient userInfoFeignClient;
-
-    @Override
-    public Page<UserInfoVo> listPage(UserInfoDto form) {
-        Result<Page<UserInfoVo>> result = userInfoFeignClient.listPage(form);
-        return result.getData();
-    }
+    // @Autowired
+    // private UserInfoFeignClient userInfoFeignClient;
+    //
+    // @Override
+    // public Page<UserInfoVo> listPage(UserInfoDto form) {
+    //     Result<Page<UserInfoVo>> result = userInfoFeignClient.listPage(form);
+    //     return result.getData();
+    // }
 }

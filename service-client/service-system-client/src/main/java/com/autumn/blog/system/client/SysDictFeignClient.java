@@ -2,10 +2,7 @@ package com.autumn.blog.system.client;
 
 import com.autumn.blog.common.result.Result;
 import com.autumn.blog.model.vo.SysDictVo;
-import com.autumn.blog.model.vo.SysMenuVo;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -16,9 +13,9 @@ import java.util.Map;
  * @date 2024年11月15日
  * @version: 1.0
  */
-@FeignClient(value = "service-system")
+// @FeignClient(value = "service-system")
 public interface SysDictFeignClient {
-
-    @GetMapping("/system/dict/getAllDict")
-    Result<Map<String, List<SysDictVo>>> getAllDict();
+    //
+    // @GetMapping("/system/dict/getAllDict")
+    // Result<Map<String, List<SysDictVo>>> getAllDict();
 }

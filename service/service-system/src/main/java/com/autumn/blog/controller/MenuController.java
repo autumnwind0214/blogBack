@@ -22,16 +22,15 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/menu")
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
 
     // 查询用户具有的菜单
-    @GetMapping("/queryMenuByUserId/{userId}")
-    public Result<List<SysMenuVo>> queryMenuByUserId(@PathVariable Long userId) {
-        return Result.success(menuService.queryMenuByUserId(userId));
+    @GetMapping("/getAsyncRoutes/{userId}")
+    public List<SysMenuVo> getAsyncRoutes(@PathVariable Long userId) {
+        return menuService.getAsyncRoutes(userId);
     }
     // 获取按钮权限
     @GetMapping("/getAuthButtonList/{userId}")

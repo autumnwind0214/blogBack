@@ -5,7 +5,7 @@
 
 
     <!-- 根据user_id 查询menu_id -->
-    <select id="queryMenuIdByUserId" resultType="java.lang.String">
+    <select id="queryMenuIdByUserId" resultType="java.lang.Long">
         SELECT DISTINCT
             ( rm.menu_id )
         FROM

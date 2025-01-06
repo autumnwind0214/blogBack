@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: web-back
+    ip: 127.0.0.1:8848
+    username: nacos
+    password: nacos
+    namespace: a49efd87-e55a-418f-b152-a478570c6f28
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        username: ${spring.application.username}
+        password: ${spring.application.password}
+        namespace: ${spring.application.namespace}
+        server-addr: ${spring.application.ip}
+      # 配置中心
+      config:
+        username: ${spring.application.username}
+        password: ${spring.application.password}
+        namespace: ${spring.application.namespace}
+        server-addr: ${spring.application.ip}
+        prefix: ${spring.application.name}
+        file-extension: yaml
+  security:
+    oauth2:
+      # 资源服务器配置
+      resourceserver:
+        jwt:
+          # Jwt中claims的iss属性，也就是jwt的签发地址，即认证服务器的根路径
+          # 资源服务器会进一步的配置，通过该地址获取公钥以解析jwt
+          issuer-uri: http://127.0.0.1:8000

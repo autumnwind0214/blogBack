@@ -1,6 +1,5 @@
 package com.autumn.blog.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -25,36 +24,17 @@ public class SysMenuVo {
     // 路径
     private String path;
 
+    // 路由名称
     private String name;
 
-    private Integer sort;
-
-    @JsonIgnore
-    private String redirect;
-
-    // 组件路径
-    private String component;
-
-    @JsonIgnore
-    private String icon;
-
-    @JsonIgnore
+    // 标题
     private String title;
 
-    @JsonIgnore
-    private Byte isHidden;
+    //图标
+    private String icon;
 
-    @JsonIgnore
-    private Byte isFull;
-
-    @JsonIgnore
-    private Byte isAffix;
-
-    @JsonIgnore
-    private String useDataScope;
-
-    @JsonIgnore
-    private Byte isKeepAlive;
+    // 排序
+    private Integer sort;
 
     // 元数据
     private Meta meta;
@@ -76,19 +56,7 @@ public class SysMenuVo {
         // 路由标题 (用作 document.title || 菜单的名称)
         private String title;
 
-        // 是否在菜单中隐藏 (通常列表详情页需要隐藏)
-        private Byte isHidden;
-
-        // 菜单是否全屏 (示例：数据大屏页面)
-        private Byte isFull;
-
-        // 菜单是否固定在标签页中
-        private Byte isAffix;
-
-        // 当前路由是否缓存
-        private Byte isKeepAlive;
-
-        // 菜单是否开启数据权限
-        private String useDataScope;
+        // 排序
+        private Integer sort;
     }
 }

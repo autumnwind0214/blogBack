@@ -11,9 +11,9 @@ import lombok.Getter;
  */
 @Getter
 public enum MenuType {
-    DIRECTORY(1000001, "目录"),
-    MENU(1000002, "菜单"),
-    BUTTON(1000003, "按钮"),
+    DIRECTORY(101, "目录"),
+    MENU(102, "菜单"),
+    BUTTON(103, "按钮"),
     ;
 
     @EnumValue

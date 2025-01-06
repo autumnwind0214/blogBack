@@ -1,6 +1,7 @@
 package com.autumn.blog.common.exception;
 
 import com.autumn.blog.common.result.Result;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,10 @@ import java.util.List;
  */
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+
+    private final List<CustomExceptionResolver> exceptionResolvers;
 
     @ResponseBody
     @ExceptionHandler(AutumnException.class)
@@ -37,6 +41,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<String> exception(Exception e) {
         log.error("【系统异常】{}", e.getMessage(), e);
+        // 逐个检查扩展的异常解析器是否支持当前异常
+        for (CustomExceptionResolver resolver : exceptionResolvers) {
+            if (resolver.supports(e)) {
+                return resolver.resolve(e);
+            }
+        }
         return Result.fail(CommonError.UN_KNOW_ERROR.getErrMessage());
     }
 

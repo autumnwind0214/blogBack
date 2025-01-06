@@ -1,18 +1,15 @@
 package com.autumn.blog.controller;
 
 import com.autumn.blog.common.result.Result;
-import com.autumn.blog.model.dto.MenuDto;
-import com.autumn.blog.model.dto.SelectIdsDto;
-import com.autumn.blog.model.vo.MenuPermissionVo;
-import com.autumn.blog.model.vo.MenuTreeVo;
-import com.autumn.blog.model.vo.MenuVo;
 import com.autumn.blog.model.vo.SysMenuVo;
 import com.autumn.blog.service.SysMenuService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -23,77 +20,19 @@ import java.util.List;
  * @version: 1.0
  */
 @Slf4j
-@Tag(name = "后台API接口管理")
 @RestController
 @RequestMapping("/menu")
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class SysMenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
 
-    // @LoginVerify
-    @Operation(summary = "查询用户具有的菜单")
-    @GetMapping("/getAuthMenuList")
-    public Result<List<SysMenuVo>> getAuthMenuList() {
-        List<SysMenuVo> menuList = sysMenuService.findMenuListByUserId();
-        return Result.success(menuList);
-    }
-
-    // @LoginVerify
-    @Operation(summary = "菜单列表查询")
-    @GetMapping("/getMenuList")
-    public Result<List<SysMenuVo>> getMenuList() {
-        return Result.success(sysMenuService.getMenuList());
-    }
-
-    // @LoginVerify
-    @Operation(summary = "添加")
-    @PostMapping("/add")
-    public Result<Boolean> addMenu(@RequestBody MenuDto menuDto) {
-        return Result.success(sysMenuService.addMenu(menuDto));
-    }
-
-    // @LoginVerify
-    @Operation(summary = "详情")
-    @GetMapping("/detail")
-    public Result<MenuVo> detail(@RequestParam Long id) {
-        return Result.success(sysMenuService.detail(id));
-    }
-
-    // @LoginVerify
-    @Operation(summary = "编辑")
-    @PutMapping("/edit")
-    public Result<Boolean> edit(@RequestBody MenuDto menuDto) {
-        return Result.success(sysMenuService.edit(menuDto));
-    }
-
-    // @LoginVerify
-    @Operation(summary = "删除")
-    @DeleteMapping("/delete")
-    public Result<Boolean> delete(@RequestBody SelectIdsDto ids) {
-        return Result.success(sysMenuService.delete(ids));
-    }
-
-    // @LoginVerify
-    @Operation(summary = "获取上级菜单树")
-    @GetMapping("/tree")
-    public Result<List<MenuTreeVo>> tree(@RequestParam(required = false) String nodeId) {
-        return Result.success(sysMenuService.tree(nodeId));
-    }
-
-    // @LoginVerify
-    @Operation(summary = "获取按钮权限")
-    @GetMapping("/getAuthButtonList")
-    public Result<List<String>> getAuthButtonList() {
-        return Result.success(sysMenuService.getAuthButtonList());
-    }
-
-    // @LoginVerify
-    @Operation(summary = "查询菜单按钮权限是否存在")
-    @GetMapping("/btn/exists")
-    public Result<MenuPermissionVo> findBtnPermission(@RequestParam(required = false) Long id, @RequestParam(required = false) String permission) {
-        return Result.success(sysMenuService.findBtnPermission(id, permission));
+    // 获取动态路由
+    @GetMapping("/getAsyncRoutes")
+    public Mono<Result<List<SysMenuVo>>> getAsyncRoutes(@RequestAttribute("userId") Long userId) {
+        Mono<Result<List<SysMenuVo>>> result = sysMenuService.getAsyncRoutes(userId).map(item -> Result.success(item))
+                .defaultIfEmpty(Result.fail());
+        return result;
     }
 
 }

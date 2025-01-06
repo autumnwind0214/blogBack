@@ -6,6 +6,7 @@ import com.autumn.blog.auth.model.vo.UserDetailsVo;
 import com.autumn.blog.common.constant.SecurityConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
@@ -71,11 +72,11 @@ public class FederatedIdentityIdTokenCustomizer implements OAuth2TokenCustomizer
         }
 
         // 检查登录用户信息是不是UserDetails，排除掉没有用户参与的流程
-        if (context.getPrincipal().getPrincipal() instanceof UserDetailsVo user) {
+        if (context.getPrincipal().getPrincipal() instanceof UserDetails user) {
             JwtClaimsSet.Builder claims = context.getClaims();
             // 获取用户的权限
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-            claims.claim(TOKEN_UNIQUE_ID, user.getId());
+            claims.claim(TOKEN_UNIQUE_ID, user.getUsername());
             transferToContext(authorities, context);
         }
     }

@@ -63,17 +63,21 @@ public class Result<T> {
     }
 
     public static<T> Result<T> fail(){
-        return Result.fail(null);
+        return Result.fail(ResultCodeEnum.FAIL);
     }
 
     /**
      * 操作失败
-     * @param data
+     * @param resultCodeEnum
      * @param <T>
      * @return
      */
-    public static<T> Result<T> fail(T data){
-        return build(data, ResultCodeEnum.FAIL);
+    public static<T> Result<T> fail(ResultCodeEnum resultCodeEnum){
+        return build(null, resultCodeEnum);
+    }
+
+    public static<T> Result<T> fail(String message) {
+        return build(null, ResultCodeEnum.FAIL.getCode(), message);
     }
 
     public Result<T> message(String msg){

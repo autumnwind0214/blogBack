@@ -20,10 +20,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
@@ -36,12 +39,16 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.filter.CorsFilter;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author autumn
@@ -52,8 +59,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationConfig {
-
-    // private final CorsFilter corsFilter;
 
     private final RedisOperator<String> redisOperator;
 
@@ -67,9 +72,7 @@ public class AuthorizationConfig {
      * @throws Exception 抛出
      */
     @Bean
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http,
-                                                                      RegisteredClientRepository registeredClientRepository,
-                                                                      AuthorizationServerSettings authorizationServerSettings) throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         // 配置默认的设置，忽略认证端点的csrf校验
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
@@ -112,6 +115,17 @@ public class AuthorizationConfig {
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> oAuth2TokenCustomizer() {
         return new FederatedIdentityIdTokenCustomizer();
+        // return (context) -> {
+        //     if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
+        //         Authentication principal = context.getPrincipal();
+        //         if (principal.getAuthorities() != null) {
+        //             List<String> authorities = principal.getAuthorities().stream()
+        //                     .map(GrantedAuthority::getAuthority)
+        //                     .collect(Collectors.toList());
+        //             context.getClaims().claim("authorities", authorities);
+        //         }
+        //     }
+        // };
     }
 
     /**

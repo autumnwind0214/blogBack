@@ -26,15 +26,14 @@ import java.util.Map;
 @RequestMapping("/dict")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SysDictController {
-
-    @Autowired
-    private SysDictService sysDictService;
-
-    // @LoginVerify
-    @Operation(summary = "获取所有字典信息")
-    @GetMapping("/getAllDict")
-    public Result<Map<String, List<SysDictVo>>> getAllDict() {
-        return Result.success(sysDictService.getAllDict());
-    }
+    //
+    // @Autowired
+    // private SysDictService sysDictService;
+    //
+    // @Operation(summary = "获取所有字典信息")
+    // @GetMapping("/getAllDict")
+    // public Result<Map<String, List<SysDictVo>>> getAllDict() {
+    //     return Result.success(sysDictService.getAllDict());
+    // }
 
 }

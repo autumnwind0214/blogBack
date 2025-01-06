@@ -1,8 +1,7 @@
 package com.autumn.blog.service;
 
-import com.autumn.blog.model.dto.MenuDto;
-import com.autumn.blog.model.dto.SelectIdsDto;
-import com.autumn.blog.model.vo.*;
+import com.autumn.blog.model.vo.SysMenuVo;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -13,21 +12,6 @@ import java.util.List;
  * @version: 1.0
  */
 public interface SysMenuService {
-    List<SysMenuVo> findMenuListByUserId();
 
-    List<SysMenuVo> getMenuList();
-
-    List<MenuTreeVo> tree(String nodeId);
-
-    Boolean addMenu(MenuDto menuDto);
-
-    List<String> getAuthButtonList();
-
-    MenuPermissionVo findBtnPermission(Long id, String permission);
-
-    MenuVo detail(Long id);
-
-    Boolean edit(MenuDto menuDto);
-
-    Boolean delete(SelectIdsDto ids);
+    Mono<List<SysMenuVo>> getAsyncRoutes(Long userId);
 }

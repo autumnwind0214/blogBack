@@ -12,6 +12,7 @@
         <module>service-client</module>
         <module>web</module>
         <module>service-auth</module>
+        <module>common/oauth2-resource-server</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
     <name>blogBack Maven Webapp</name>

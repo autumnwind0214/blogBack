@@ -17,7 +17,7 @@ import java.util.List;
  * @version: 1.0
  */
 public interface MenuService extends IService<Menu> {
-    List<SysMenuVo> queryMenuByUserId(Long userId);
+    List<SysMenuVo> getAsyncRoutes(Long userId);
 
     List<SysMenuVo> getMenuList();
 

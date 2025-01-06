@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Data
-@TableName("authorizationConsent")
+@TableName("authorizationconsent")
 public class AuthorizationConsent {
     @TableId
     private String registeredClientId;

@@ -190,13 +190,12 @@ public class SecurityUtils {
      * 开启认证服务OIDC配置，禁用 csrf 与 cors，配置认证存储方式，设置跳转至登录页面逻辑，添加资源服务配置
      *
      * @param http       Security核心配置类
-     * @param corsFilter 跨域处理过滤器
      */
     @SneakyThrows
     public static void applyBasicSecurity(HttpSecurity http, CustomSecurityProperties customSecurityProperties) {
         // 添加跨域过滤器
         // http.addFilter(corsFilter);
-
+        http.cors(cors -> cors.disable());
         OAuth2AuthorizationServerConfigurer httpConfigurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
 
         if (httpConfigurer != null) {
