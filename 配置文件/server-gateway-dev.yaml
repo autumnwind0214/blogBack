@@ -1,0 +1,51 @@
+server:
+  port: 9000
+feign:
+  sentinel:
+    enabled: true
+spring:
+  data:
+    redis:
+      host: 192.168.98.131
+      port: 6379
+      database: 0
+      timeout: 1800000
+      password: '000214'
+      jedis:
+        pool:
+          max-active: 20 #最大连接数
+          max-wait: -1    #最大阻塞等待时间(负数表示没限制)
+          max-idle: 5    #最大空闲
+          min-idle: 0     #最小空闲
+  cloud:
+    openfeign:
+      lazy-attributes-resolution: true
+      client:
+        config:
+          default:
+            connectTimeout: 30000
+            readTimeout: 30000
+            loggerLevel: basic
+    gateway:
+      default-filters:
+        # 令牌中继
+        - TokenRelay=
+        - StripPrefix=1
+      discovery:      #是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能。
+        locator:      #路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问。
+          enabled: true
+      routes:
+        # web 接口
+        - id: web-back
+          uri: lb://web-back
+          predicates:
+            - Path=/back-api/**
+        - id: server-auth
+          uri: lb://server-auth
+          predicates:
+            - Path=/auth-api/**
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway: DEBUG

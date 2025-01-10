@@ -80,7 +80,7 @@ public class AuthorizationUserServiceImpl extends ServiceImpl<AuthorizationUserM
         } else {
             String password = user.getPassword();
             user.setPassword("");
-            UserDetails userDetails = User.withUsername(JSONObject.toJSONString(user)).password(password).authorities(authorities).build();
+            UserDetails userDetails = User.withUsername(user.getId().toString()).password(password).authorities(authorities).build();
             // UserDetails userDetails = User.withUsername(username).password(password).authorities(authorities).build();
             return userDetails;
         }

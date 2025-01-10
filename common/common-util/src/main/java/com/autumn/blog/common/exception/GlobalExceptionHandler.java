@@ -1,6 +1,7 @@
 package com.autumn.blog.common.exception;
 
 import com.autumn.blog.common.result.Result;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author autumn
@@ -40,7 +45,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<String> exception(Exception e) {
-        log.error("【系统异常】{}", e.getMessage(), e);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        log.error("【系统异常】{}", e.getMessage());
+        // e.printStackTrace();
+        log.warn("【请求信息-RequestURL】 {}", request.getRequestURL());
+
+        // 获取所有查询参数
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        for (String key : parameterMap.keySet()) {
+            String[] values = parameterMap.get(key);
+            log.warn("Parameter: {} , values: {}", key, Arrays.toString(values));
+        }
+
         // 逐个检查扩展的异常解析器是否支持当前异常
         for (CustomExceptionResolver resolver : exceptionResolvers) {
             if (resolver.supports(e)) {

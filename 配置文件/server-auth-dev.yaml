@@ -1,13 +1,15 @@
+server:
+  port: 8000
 spring:
   security:
     oauth2:
       authorization-server:
-        issuer-uri: http://127.0.0.1:8080
+        issuer-uri: http://127.0.0.1:8000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/auth-server?serverTimezone=UTC&userUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
+    url: jdbc:mysql://192.168.98.131:3306/blog_auth?serverTimezone=UTC&userUnicode=true&characterEncoding=utf-8
+    username: remote
+    password: remote
   data:
     redis:
       host: 192.168.98.131
@@ -28,7 +30,9 @@ custom:
   # 自定义认证配置
   security:
     # 不需要认证的地址
-    ignore-uri-list: assets/**, /webjars/**, /login, /getCaptcha, /getSmsCaptcha, /error, /oauth2/consent/parameters, /qrCode/login/**
+    ignore-uri-list: assets/**, /webjars/**, /login, /getCaptcha, /getSmsCaptcha, /error, /oauth2/consent/parameters, /qrCode/login/**, /oauth2/authorize, /oauth2/token
     # 当前认证服务访问的路径
-    issuer-url: http://127.0.0.1:8080
-    login-url: http://127.0.0.1:5173/login
+    issuer-url: http://127.0.0.1:8000
+    # 后端登录页面访问路径
+    # login-url: http://127.0.0.1:9999/#/login
+    login-url: http://127.0.0.1:9999/login

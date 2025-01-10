@@ -25,6 +25,32 @@ spring:
         server-addr: ${spring.application.ip}
         prefix: ${spring.application.name}
         file-extension: yaml
+#    openfeign:
+#      lazy-attributes-resolution: true
+#      client:
+#        config:
+#          default:
+#            connectTimeout: 30000
+#            readTimeout: 30000
+#            loggerLevel: basic
+#      gateway:
+#        default-filters:
+#          # 令牌中继
+#          - TokenRelay=
+#          - StripPrefix=1
+#        discovery:
+#          locator:
+#            enabled: true
+#        routes:
+#          # web 接口
+#          - id: web-back
+#            uri: lb://web-back
+#            predicates:
+#              - Path=/back-api/**
+#          - id: server-auth
+#            uri: lb://server-auth
+#            predicates:
+#              - Path=/auth-api/**
   security:
     oauth2:
       resourceserver:
